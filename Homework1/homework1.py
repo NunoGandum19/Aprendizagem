@@ -114,12 +114,4 @@ plt.show()
 - Characterize a hernia condition by identifying the hernia-conditional associations
 """
 
-plt.figure(figsize=(10, 6))
-for feature in X.columns:
-    sns.distplot(df[df['class'] == 'Hernia'][feature], label= feature, hist=False)
-plt.xlabel('Feature Value')
-plt.ylabel('Hernia-Conditional Probability Density')
-plt.title('Hernia-Conditional Probability Density of Features')
-plt.legend()
-plt.show()
 
