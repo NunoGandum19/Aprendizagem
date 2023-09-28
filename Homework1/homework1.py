@@ -36,31 +36,30 @@ print(fstat_df)
 
 # Plot the class-conditional probability density functions of the variables with the highest and lowest F-statistic
 plt.figure(figsize=(10, 6))
-sns.distplot(df[df['class'] == 'Hernia']['pelvic_radius'], label='Hernia', hist=False)
-sns.distplot(df[df['class'] == 'Normal']['pelvic_radius'], label='Normal', hist=False)
-sns.distplot(df[df['class'] == 'Spondylolisthesis']['pelvic_radius'], label='Spondylolisthesis', hist=False)
+sns.kdeplot(df['pelvic_radius'][df['class'] == 'Hernia'], label='Hernia')
+sns.kdeplot(df['pelvic_radius'][df['class'] == 'Spondylolisthesis'], fill=False, label='Spondylolisthesis')
+sns.kdeplot(df['pelvic_radius'][df['class'] == 'Normal'], fill=False, label='Normal')
 plt.xlabel('pelvic_radius')
 plt.ylabel('class-conditional probability density')
 plt.title('Class-conditional probability density of pelvic_radius')
 plt.legend()
-plt.savefig('DensProbPelvicRadius.png')
+#plt.savefig('DensProbPelvicRadius.png')
 plt.show()
 
 plt.figure(figsize=(10, 6))
-sns.distplot(df[df['class'] == 'Hernia']['degree_spondylolisthesis'], label='Hernia', hist=False)
-sns.distplot(df[df['class'] == 'Normal']['degree_spondylolisthesis'], label='Normal', hist=False)
-sns.distplot(df[df['class'] == 'Spondylolisthesis']['degree_spondylolisthesis'], label='Spondylolisthesis', hist=False)
+sns.kdeplot(df['degree_spondylolisthesis'][df['class'] == 'Hernia'], fill = False, label= 'Hernia')
+sns.kdeplot(df['degree_spondylolisthesis'][df['class'] == 'Spondylolisthesis'], fill = False, label='Spondylolisthesis')
+sns.kdeplot(df['degree_spondylolisthesis'][df['class'] == 'Normal'], fill = False, label='Normal')
 plt.xlabel('degree_spondylolisthesis')
 plt.ylabel('class-conditional probability density')
 plt.title('Class-conditional probability density of degree_spondylolisthesis')
 plt.legend()
-plt.savefig('DensProbSpondy.png')
+#plt.savefig('DensProbSpondy.png')
 plt.show() 
 
 
-#EXERCÍCIO 2 - QUEREMOS OBTER UM ÚNICO PLOT QUE NOS DÁ A ACCURACY TANTO DO 
-# TRAIN COMO DO TEST EM FUNÇÃO DA PROFUNDIDADE DA ÁRVORE
-
+################## EXERCÍCIO 2 ##################################### 
+# QUEREMOS OBTER UM ÚNICO PLOT QUE NOS DÁ A ACCURACY TANTO DO  TRAIN COMO DO TEST EM FUNÇÃO DA PROFUNDIDADE DA ÁRVORE
 random_seed = 0
 
 train_accuracies = []
@@ -102,7 +101,7 @@ plt.show()
 - Treinar uma decision tree com todos os dados - random_state=0.
 - Fazer o plot de uma decision tree com mínimo de 20 indivíduos por folha, para evitar overfitting.
 """
-clf = DecisionTreeClassifier(min_samples_leaf=20, random_state=random_seed)
+clf = DecisionTreeClassifier(min_samples_leaf = 20, random_state = random_seed)
 clf.fit(X, y) #treinamos a árvore com todos os dados
 
 plt.figure(figsize=(12, 8))
@@ -111,6 +110,16 @@ plt.title("Decision Tree with Minimum Leaf Size of 20")
 plt.show()
 
 ############# 4. b) #######################################
+"""
+- Characterize a hernia condition by identifying the hernia-conditional associations
+"""
 
-
+plt.figure(figsize=(10, 6))
+for feature in X.columns:
+    sns.distplot(df[df['class'] == 'Hernia'][feature], label= feature, hist=False)
+plt.xlabel('Feature Value')
+plt.ylabel('Hernia-Conditional Probability Density')
+plt.title('Hernia-Conditional Probability Density of Features')
+plt.legend()
+plt.show()
 
