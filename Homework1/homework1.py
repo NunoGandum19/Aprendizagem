@@ -34,9 +34,7 @@ fstat_df.index = X.columns
 fstat_df = fstat_df.sort_values(by=['F-statistic'], ascending=False)
 print(fstat_df)
 
-
-
-
+# Plot the class-conditional probability density functions of the variables with the highest and lowest F-statistic
 plt.figure(figsize=(10, 6))
 sns.distplot(df[df['class'] == 'Hernia']['pelvic_radius'], label='Hernia', hist=False)
 sns.distplot(df[df['class'] == 'Normal']['pelvic_radius'], label='Normal', hist=False)
@@ -47,8 +45,6 @@ plt.title('Class-conditional probability density of pelvic_radius')
 plt.legend()
 plt.savefig('DensProbPelvicRadius.png')
 plt.show()
-
-
 
 plt.figure(figsize=(10, 6))
 sns.distplot(df[df['class'] == 'Hernia']['degree_spondylolisthesis'], label='Hernia', hist=False)
@@ -64,7 +60,6 @@ plt.show()
 
 #EXERCÍCIO 2 - QUEREMOS OBTER UM ÚNICO PLOT QUE NOS DÁ A ACCURACY TANTO DO 
 # TRAIN COMO DO TEST EM FUNÇÃO DA PROFUNDIDADE DA ÁRVORE
-
 
 random_seed = 0
 
@@ -102,9 +97,13 @@ plt.legend()
 plt.show()
 
 
-
+############# 4. a) #######################################
+"""
+- Treinar uma decision tree com todos os dados - random_state=0.
+- Fazer o plot de uma decision tree com mínimo de 20 indivíduos por folha, para evitar overfitting.
+"""
 clf = DecisionTreeClassifier(min_samples_leaf=20, random_state=random_seed)
-clf.fit(X, y)
+clf.fit(X, y) #treinamos a árvore com todos os dados
 
 plt.figure(figsize=(12, 8))
 plot_tree(clf, filled=True, feature_names=df.columns, class_names=np.unique(y).astype(str), fontsize=10)
