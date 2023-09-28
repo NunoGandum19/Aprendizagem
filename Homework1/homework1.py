@@ -96,7 +96,7 @@ plt.xticks(depth_limits)
 plt.legend()
 plt.show()
 
-
+############# 4. #########################################
 ############# 4. a) #######################################
 """
 - Treinar uma decision tree com todos os dados - random_state=0.
@@ -109,6 +109,8 @@ plt.figure(figsize=(12, 8))
 plot_tree(clf, filled=True, feature_names=df.columns, class_names=np.unique(y).astype(str), fontsize=10)
 plt.title("Decision Tree with Minimum Leaf Size of 20")
 plt.show()
+
+############# 4. b) #######################################
 
 
 
