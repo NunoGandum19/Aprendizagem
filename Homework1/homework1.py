@@ -151,6 +151,6 @@ plt.show()
 """
 - Characterize a hernia condition by identifying the hernia-conditional associations
 """
-#temos que descrever o percurso da árvore até chegar às 2 folhas de hérnia (condições para chegar a hérnia)
+# temos que descrever o percurso da árvore até chegar às 2 folhas de hérnia (condições para chegar a hérnia)
 
 
