@@ -4,6 +4,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import confusion_matrix
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -61,5 +62,27 @@ print('p-value:', p_value)
 
 knn1 = KNeighborsClassifier(n_neighbors=1, weights='uniform', metric='euclidean')
 knn5 = KNeighborsClassifier(n_neighbors=5, weights='uniform', metric='euclidean')
+
+# Obter os y previstos para o knn1 e knn5
+knn1.fit(X, y)
+knn5.fit(X, y)
+y1_pred = knn1.predict(X)
+y5_pred = knn5.predict(X)
+
+# Fazer as matrizes de confusão
+cm1 = confusion_matrix(y, y1_pred)
+cm5 = confusion_matrix(y, y5_pred)
+
+# Fazer a diferença entre as matrizes de confusão
+dif = cm1 - cm5
+
+# Plot da diferença
+plt.figure()
+plt.imshow(dif, cmap='Blues')
+plt.colorbar()
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Difference between confusion matrices of kNN (k=1) and kNN (k=5)')
+plt.show()
 
 ##### EXERCÍCIO 3 ##########################################
