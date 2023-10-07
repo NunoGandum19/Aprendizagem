@@ -43,6 +43,7 @@ ax.boxplot(scores_list)
 ax.set_xticklabels(['kNN (k=5)', 'Naive Bayes'])
 ax.set_ylabel('Accuracy')
 ax.set_title('Comparison of kNN and Naive Bayes')
+plt.savefig('boxplot.png')
 plt.show()
 
 ### b) ###
@@ -82,6 +83,7 @@ plt.ylabel('True')
 plt.xticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
 plt.yticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
 plt.title('Difference between confusion matrices of kNN (k=1) and kNN (k=5)')
+plt.savefig('confusion.png')
 plt.show()
 
 ##### EXERCÍCIO 3 ##########################################
