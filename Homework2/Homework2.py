@@ -78,8 +78,6 @@ dif = cm1 - cm5
 plt.figure()
 plt.imshow(dif, cmap='Blues')
 plt.colorbar()
-plt.xlabel('Predicted')
-plt.ylabel('True')
 plt.xticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
 plt.yticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
 plt.title('Difference between confusion matrices of kNN (k=1) and kNN (k=5)')
