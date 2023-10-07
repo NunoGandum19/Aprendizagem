@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.io.arff import loadarff
 from scipy.stats import ttest_rel
+import numpy as np
 
 # Reading the file
 data = loadarff('column_diagnosis.arff')
@@ -61,23 +62,45 @@ print('p-value:', p_value)
 knn1 = KNeighborsClassifier(n_neighbors=1, weights='uniform', metric='euclidean')
 knn5 = KNeighborsClassifier(n_neighbors=5, weights='uniform', metric='euclidean')
 
-# Obter os y previstos para o knn1 e knn5
-knn1.fit(X, y)
-knn5.fit(X, y)
-y1_pred = knn1.predict(X)
-y5_pred = knn5.predict(X)
 
-# Fazer as matrizes de confusão
-cm1 = confusion_matrix(y, y1_pred)
-cm5 = confusion_matrix(y, y5_pred)
+
+# Matrizes de confusão para o knn1 e knn5
+cm1_total = np.zeros((3, 3))
+cm5_total = np.zeros((3, 3))
+
+for train_k, test_k in cv.split(X, y):
+    # Obter os X e y de teste e treino  
+    X_train, X_test = X.iloc[train_k], X.iloc[test_k]
+    y_train, y_test = y.iloc[train_k], y.iloc[test_k]
+
+    # Obter os y previstos para o knn1 e knn5
+    knn1.fit(X_train, y_train)
+    knn5.fit(X_train, y_train)
+    y1_pred = knn1.predict(X_test)
+    y5_pred = knn5.predict(X_test)
+
+    # Obter as matrizes de confusão
+    cm1 = confusion_matrix(y_test, y1_pred)
+    cm5 = confusion_matrix(y_test, y5_pred)
+
+    # Adicionar às matrizes cumulativas
+    cm1_total += cm1
+    cm5_total += cm5
+
+
 
 # Fazer a diferença entre as matrizes de confusão
-dif = cm1 - cm5
+dif = cm1_total - cm5_total
 
 # Plot da diferença
 plt.figure()
 plt.imshow(dif, cmap='Blues')
 plt.colorbar()
+plt.xlabel('Predicted')
+plt.ylabel('True')
+for i in range(dif.shape[0]):
+    for j in range(dif.shape[1]):
+        plt.text(j, i, str(int(dif[i, j])), ha='center', va='center', color='black')
 plt.xticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
 plt.yticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
 plt.title('Difference between confusion matrices of kNN (k=1) and kNN (k=5)')
