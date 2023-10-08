@@ -4,6 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import confusion_matrix
 import pandas as pd
+import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.io.arff import loadarff
 from scipy.stats import ttest_rel
@@ -109,9 +110,22 @@ plt.show()
 
 ##### EXERCÍCIO 3 ##########################################
 
+# Para obter o número de instâncias de cada classe
+sns.countplot(x='class', data=df)
+plt.savefig('countplot.png')
+plt.show()
+
 # Para obter a matriz de correlação
 df = df.drop('class', axis=1)
 df.corr(method='pearson')
 sns.heatmap(df.corr(method='pearson'), annot=True)
 plt.savefig('heatmap.png')
 plt.show()
+
+# hitograma para cada variável
+df.hist(figsize=(12, 8))
+plt.savefig('histogram.png')
+plt.show()
+
+
+
