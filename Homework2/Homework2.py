@@ -108,3 +108,10 @@ plt.savefig('confusion.png')
 plt.show()
 
 ##### EXERCÍCIO 3 ##########################################
+
+# Para obter a matriz de correlação
+df = df.drop('class', axis=1)
+df.corr(method='pearson')
+sns.heatmap(df.corr(method='pearson'), annot=True)
+plt.savefig('heatmap.png')
+plt.show()
