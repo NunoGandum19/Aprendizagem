@@ -33,4 +33,5 @@ I = np.eye(3)
 w = np.linalg.inv(phi_X.T @ phi_X + lambda_ * I) @ phi_X.T @ y
 # nota: o @ é o operador de multiplicação de matrizes
 
-print(w)
+print('Phi_X = ',phi_X)
+print('w =', w)
