@@ -24,7 +24,8 @@ r2_scores = []
 # iteração para cada random state
 for i in range(1, 11):
     # Initialize the MLP regressor with random state
-    mlp = MLPRegressor(random_state=i)
+    mlp = MLPRegressor(random_state=i, max_iter=1000)
+    # não sei se é suposto por um max_iter, mas se não puser dá warning
     
     # treinar o modelo
     mlp.fit(X_train, y_train)
@@ -36,7 +37,7 @@ for i in range(1, 11):
     r2 = r2_score(y_test, y_pred)
     r2_scores.append(r2)
 
-# Calculate average R2 score
+# obtemos a médio dos r^2
 average_r2 = sum(r2_scores) / len(r2_scores)
 print("Average R2 Score:", average_r2)
 
