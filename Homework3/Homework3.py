@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPRegressor
-from sklearn.metrics import r2_score, mean_absolute_error 
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error 
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -92,3 +92,32 @@ print("MAE with Original Predictions:", mae_original)
 print("MAE with Rounded and Bounded Predictions:", mae_rounded)
 
 # vê-se que o MAE com os valores arredondados é menor, logo é melhor
+
+##### 3 #############################
+
+# nº de iterações
+iterations = [20, 50, 100, 200]
+
+# lista para guardar os RMSE de cada iteração
+rmse_values = []
+
+# iteração pela lista de cada nº de iterações máximas
+for max_iter in iterations:
+    # Inicializar o MLP regressor com os parâmetros pedidos
+    mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
+                       activation='relu',
+                       max_iter=max_iter,
+                       random_state=0)
+
+    # treinar o modelo
+    mlp.fit(X_train, y_train)
+
+    # obter y previsto
+    y_pred = mlp.predict(X_test)
+
+    # calcular rmse
+    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    rmse_values.append((max_iter, rmse))
+
+for max_iter, rmse in rmse_values:
+    print("RMSE for {} iterations: {:.2f}".format(max_iter, rmse))
