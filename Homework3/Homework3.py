@@ -2,8 +2,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPRegressor
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_absolute_error 
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Ler o ficheiro
 data = pd.read_csv("winequality-red.csv", delimiter=';')
@@ -58,3 +59,36 @@ y_pred = mlp.predict(X_test)
 
 # obter os resíduos
 residuos = y_test - y_pred
+
+# Calcular o módulo dos resíduos
+abs_residuos = abs(residuos)
+
+# fazer o histograma
+plt.hist(abs_residuos, bins=20, edgecolor='k')
+plt.title('Distribution of Absolute Residuals')
+plt.xlabel('Absolute Residuals')
+plt.ylabel('Frequency')
+plt.show()
+
+##### 2 #############################
+
+# aproximamos os valores previstos para os valores inteiros mais próximos
+rounded_predictions = np.round(y_pred)
+
+# obter máximo e mínimo do target
+min_target = np.min(y_train)
+max_target = np.max(y_train)
+
+# garantir que os valores previstos estão dentro do intervalo do target
+bounded_predictions = np.clip(rounded_predictions, min_target, max_target)
+
+# obter o MAE com os valores originais
+mae_original = mean_absolute_error(y_test, y_pred)
+
+# obtet o MAE com os valores arredondados
+mae_rounded = mean_absolute_error(y_test, bounded_predictions)
+
+print("MAE with Original Predictions:", mae_original)
+print("MAE with Rounded and Bounded Predictions:", mae_rounded)
+
+# vê-se que o MAE com os valores arredondados é menor, logo é melhor
