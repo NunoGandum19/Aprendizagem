@@ -43,7 +43,7 @@ print("Average R2 Score:", average_r2)
 
 ##### 1 #############################
 
-# Initialize the MLP regressor with the specified parameters
+# Inicializar o MLP regressor com os parâmetros pedidos
 mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
                    activation='relu',
                    early_stopping=True,
