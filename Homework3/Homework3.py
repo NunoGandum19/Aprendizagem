@@ -41,5 +41,15 @@ for i in range(1, 11):
 average_r2 = sum(r2_scores) / len(r2_scores)
 print("Average R2 Score:", average_r2)
 
+##### 1 #############################
 
+# Initialize the MLP regressor with the specified parameters
+mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
+                   activation='relu',
+                   early_stopping=True,
+                   validation_fraction=0.2,
+                   random_state=0)
+
+# Fit the model
+mlp.fit(X_train, y_train)
 
