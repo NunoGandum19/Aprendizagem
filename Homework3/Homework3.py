@@ -50,6 +50,11 @@ mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
                    validation_fraction=0.2,
                    random_state=0)
 
-# Fit the model
+# treinar o modelo
 mlp.fit(X_train, y_train)
 
+# obter y previsto
+y_pred = mlp.predict(X_test)
+
+# obter os resíduos
+residuos = y_test - y_pred
