@@ -104,20 +104,26 @@ rmse_values = []
 # iteração pela lista de cada nº de iterações máximas
 for max_iter in iterations:
     # Inicializar o MLP regressor com os parâmetros pedidos
-    mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
+    mlp2 = MLPRegressor(hidden_layer_sizes=(10, 10),
                        activation='relu',
                        max_iter=max_iter,
                        random_state=0)
 
     # treinar o modelo
-    mlp.fit(X_train, y_train)
+    mlp2.fit(X_train, y_train)
 
     # obter y previsto
-    y_pred = mlp.predict(X_test)
+    y_pred2 = mlp2.predict(X_test)
 
     # calcular rmse
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    rmse = np.sqrt(mean_squared_error(y_test, y_pred2))
     rmse_values.append((max_iter, rmse))
+
+rmse_es = np.sqrt(mean_squared_error(y_test, y_pred))
+rmse_values.append(('early stopping', rmse_es))
+
 
 for max_iter, rmse in rmse_values:
     print("RMSE for {} iterations: {:.2f}".format(max_iter, rmse))
+
+
