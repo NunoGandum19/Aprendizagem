@@ -2,31 +2,44 @@ import numpy as np
 
 ############## 1. ################
 ### a) ###
+
 # Define the activation function
-'''def phi(x):
-    return 
+def phi(x, c):
+    return np.exp(-0.5 * (np.linalg.norm(x - c))**2)
 
 # Define the regularization parameter
 lambda_ = 0.1
 
-# Define de X and phi matrix
-X = np.array([[1, 0.7, -0.3], [1, 0.4, 0.5], [1, -0.2, 0.8]])
-Phi_x = 
+# Define the X matrix
+X = np.array([[0.7,-0.3],[0.4,0.5],[-0.2,0.8],[-0.4,0.3]]) 
 
 # Define the z vector
-z = np.array([[0.8],[0.6],[0.3]])
+z = np.array([[0.8],[0.6],[0.3], [0.3]])
+
+# Define the c vectors
+c1 = np.array([0,0])
+c2 = np.array([1,-1])
+c3 = np.array([-1,1])
+
+# Define de Phi matrix
+
+Phi = np.array([[1, phi(X[0], c1), phi(X[0], c2), phi(X[0], c3)],
+                [1, phi(X[1], c1), phi(X[1], c2), phi(X[1], c3)],
+                [1, phi(X[2], c1), phi(X[2], c2), phi(X[2], c3)],
+                [1, phi(X[3], c1), phi(X[3], c2), phi(X[3], c3)]])
 
 # Obtain the weights
-w = np.dot(np.dot(np.linalg.inv(np.dot(Phi_x.T, Phi_x) + lambda_*np.identity(3)), Phi_x.T), z)
-
+w = np.dot(np.dot(np.linalg.inv(np.dot(Phi.T, Phi) + lambda_*np.identity(4)), Phi.T), z)
+print(f"The weights are {w}.")
 ### b) ###
-def RMSE(np.array z, np.array z_esperado):
+def RMSE(z, z_esperado):
     return np.sqrt(np.sum((z - z_esperado)**2)/len(z))
 
-z_esperado = np.dot(Phi_x, w)
+z_esperado = np.dot(Phi, w) 
+print(f"The z_esperado is {z_esperado}.")
 
 res = RMSE(z, z_esperado)
-print(f"The RMSE is {res}.")'''
+print(f"The RMSE is {res}.")
 ############## 2. ################
 # Define the activation function
 def f(x):
