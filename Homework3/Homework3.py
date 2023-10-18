@@ -93,21 +93,26 @@ rmse_values = []
 
 # iteração pela lista de cada nº de iterações máximas
 for max_iter in iterations:
-    # Inicializar o MLP regressor com os parâmetros pedidos
-    mlp2 = MLPRegressor(hidden_layer_sizes=(10, 10),
-                       activation='relu',
-                       max_iter=max_iter,
-                       random_state=0)
+    rmse_lista = []
+    for i in range(1, 11):
+        # Inicializar o MLP regressor com os parâmetros pedidos
+        mlp2 = MLPRegressor(hidden_layer_sizes=(10, 10),
+                        activation='relu',
+                        max_iter=max_iter,
+                        random_state=i)
 
-    # treinar o modelo
-    mlp2.fit(X_train, y_train)
+        # treinar o modelo
+        mlp2.fit(X_train, y_train)
 
-    # obter y previsto
-    y_pred2 = mlp2.predict(X_test)
+        # obter y previsto
+        y_pred2 = mlp2.predict(X_test)
 
-    # calcular rmse
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred2))
-    rmse_values.append((max_iter, rmse))
+        # calcular rmse
+        rmse = np.sqrt(mean_squared_error(y_test, y_pred2))
+        rmse_lista.append(rmse)
+    valor_rmse = sum(rmse_lista) / len(rmse_lista)
+    rmse_values.append((max_iter, valor_rmse))
+
 
 # juntar à lista o RMSE com early stopping
 rmse_es = np.sqrt(mean_squared_error(y_test, y_pred))
@@ -115,7 +120,7 @@ rmse_values.append(('early stopping', rmse_es))
 
 
 for max_iter, rmse in rmse_values:
-    print("RMSE for {} iterations: {:.2f}".format(max_iter, rmse))
+        print("RMSE for {} iterations: {:.2f}".format(max_iter, rmse))
 
 
 
