@@ -119,11 +119,14 @@ for max_iter in iterations:
     rmse = np.sqrt(mean_squared_error(y_test, y_pred2))
     rmse_values.append((max_iter, rmse))
 
+# juntar à lista o RMSE com early stopping
 rmse_es = np.sqrt(mean_squared_error(y_test, y_pred))
 rmse_values.append(('early stopping', rmse_es))
 
 
 for max_iter, rmse in rmse_values:
     print("RMSE for {} iterations: {:.2f}".format(max_iter, rmse))
+
+
 
 
