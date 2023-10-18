@@ -19,13 +19,19 @@ X_scaled = scaler.fit_transform(X)
 # Fazer um train/test split (80 treino e 20 teste)
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=0)
 
-# lista para guardar os coeficientes de correlação (r^2) de cada iteração
-r2_scores = []
+### 1 ##########################################
+
+#lista residuos
+resid = []
 
 # iteração para cada random state
 for i in range(1, 11):
     # Initialize the MLP regressor with random state
-    mlp = MLPRegressor(random_state=i, max_iter=1000)
+    mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
+                   activation='relu',
+                   early_stopping=True,
+                   validation_fraction=0.2,
+                   random_state=i)
     # não sei se é suposto por um max_iter, mas se não puser dá warning
     
     # treinar o modelo
@@ -33,38 +39,22 @@ for i in range(1, 11):
     
     # obter y previsto
     y_pred = mlp.predict(X_test)
+
+    # obter os resíduos
+    residuos = y_test - y_pred
+
+    # Calcular o módulo dos resíduos
+    abs_residuos = abs(residuos)
     
-    # calcular r^2
-    r2 = r2_score(y_test, y_pred)
-    r2_scores.append(r2)
+    resid.append(abs_residuos)
 
-# obtemos a médio dos r^2
-average_r2 = sum(r2_scores) / len(r2_scores)
-print("Average R2 Score:", average_r2)
 
-##### 1 #############################
-
-# Inicializar o MLP regressor com os parâmetros pedidos
-mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
-                   activation='relu',
-                   early_stopping=True,
-                   validation_fraction=0.2,
-                   random_state=0)
-
-# treinar o modelo
-mlp.fit(X_train, y_train)
-
-# obter y previsto
-y_pred = mlp.predict(X_test)
-
-# obter os resíduos
-residuos = y_test - y_pred
-
-# Calcular o módulo dos resíduos
-abs_residuos = abs(residuos)
+# obtemos a médio dos resíduos
+average_resid = sum(resid) / len(resid)
+print("Resíduos:", average_resid)
 
 # fazer o histograma
-plt.hist(abs_residuos, bins=20, edgecolor='k')
+plt.hist(average_resid, bins=20, edgecolor='k')
 plt.title('Distribution of Absolute Residuals')
 plt.xlabel('Absolute Residuals')
 plt.ylabel('Frequency')
