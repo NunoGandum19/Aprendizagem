@@ -111,22 +111,34 @@ for max_iter in iterations:
         rmse = np.sqrt(mean_squared_error(y_test, y_pred2))
         rmse_lista.append(rmse)
     valor_rmse = sum(rmse_lista) / len(rmse_lista)
-    rmse_values.append((max_iter, valor_rmse))
+    rmse_values.append(valor_rmse)
 
 
 # juntar à lista o RMSE com early stopping
 rmse_es = np.sqrt(mean_squared_error(y_test, y_pred))
-rmse_values.append(('early stopping', rmse_es))
 
 
-for max_iter, rmse in rmse_values:
-        print("RMSE for {} iterations: {:.2f}".format(max_iter, rmse))
+for rmse in rmse_values:
+        print("RMSE for {} iterations: {}".format(iterations[rmse_values.index(rmse)], rmse))
+print("RMSE with Early Stopping:", rmse_es)
 
 ### 4 ##########################################
 
-# plot de rmse vs nº de iterações 
+
+# Create an array of constant values for y
+y = [rmse_es for i in range(len(iterations))]
 
 
+# nº iterações vs early stopping
+plt.figure(figsize=(10, 6))
+plt.plot(iterations, rmse_values, marker='o', label='Maximum Iterations')
+plt.plot(iterations, y, linestyle='--', label='Early Stopping')
+plt.xlabel('Maximum Iterations')
+plt.ylabel('RMSE')
+plt.title('RMSE vs. Maximum Iterations')
+plt.xticks(iterations)
+plt.legend()
+plt.show()
 
 
 
