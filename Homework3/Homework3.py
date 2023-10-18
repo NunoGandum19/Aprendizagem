@@ -122,6 +122,15 @@ rmse_values.append(('early stopping', rmse_es))
 for max_iter, rmse in rmse_values:
         print("RMSE for {} iterations: {:.2f}".format(max_iter, rmse))
 
+### 4 ##########################################
+
+# plot de rmse vs nº de iterações 
+
+
+
+
+
+
 
 
 
