@@ -93,6 +93,35 @@ for train_k, test_k in cv.split(X, y):
 # Fazer a diferença entre as matrizes de confusão
 dif = cm1_total - cm5_total
 
+# Plot de cada matriz de confusão
+plt.figure()
+plt.imshow(cm1_total, cmap='Blues')
+plt.colorbar()
+plt.xlabel('Predicted')
+plt.ylabel('True')
+for i in range(cm1_total.shape[0]):
+    for j in range(cm1_total.shape[1]):
+        plt.text(j, i, str(int(cm1_total[i, j])), ha='center', va='center', color='black')
+plt.xticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
+plt.yticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
+plt.title('Confusion matrix of kNN (k=1)')
+plt.savefig('confusion_knn1.png')
+plt.show()
+
+plt.figure()
+plt.imshow(cm5_total, cmap='Blues')
+plt.colorbar()
+plt.xlabel('Predicted')
+plt.ylabel('True')
+for i in range(cm5_total.shape[0]):
+    for j in range(cm5_total.shape[1]):
+        plt.text(j, i, str(int(cm5_total[i, j])), ha='center', va='center', color='black')
+plt.xticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
+plt.yticks([0, 1, 2], ['Hernia', 'Normal', 'Spondylolisthesis'])
+plt.title('Confusion matrix of kNN (k=5)')
+plt.savefig('confusion_knn5.png')
+plt.show()
+
 # Plot da diferença
 plt.figure()
 plt.imshow(dif, cmap='Blues')
