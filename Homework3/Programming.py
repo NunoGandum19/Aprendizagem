@@ -58,24 +58,51 @@ plt.show()
 
 ##### 2 #############################
 
-# aproximamos os valores previstos para os valores inteiros mais próximos
-rounded_predictions = np.round(y_pred)
+# lista para guardar os MAE
+lista_mae_original = []
+lista_mae_rounded = []
 
-# obter máximo e mínimo do target
-min_target = np.min(y_train)
-max_target = np.max(y_train)
+# iteração para cada random state
+for i in range(1, 11):
+    # Initialize the MLP regressor with random state
+    mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
+                   activation='relu',
+                   early_stopping=True,
+                   validation_fraction=0.2,
+                   random_state=i)
+    
+   
+    # treinar o modelo
+    mlp.fit(X_train, y_train)
+    
+    # obter y previsto
+    y_pred = mlp.predict(X_test)
 
-# garantir que os valores previstos estão dentro do intervalo do target
-bounded_predictions = np.clip(rounded_predictions, min_target, max_target)
+    # aproximamos os valores previstos para os valores inteiros mais próximos
+    rounded_predictions = np.round(y_pred)
+    
+    # obter máximo e mínimo do target
+    min_target = np.min(y_train)
+    max_target = np.max(y_train)
 
-# obter o MAE com os valores originais
-mae_original = mean_absolute_error(y_test, y_pred)
+    # garantir que os valores previstos estão dentro do intervalo do target
+    bounded_predictions = np.clip(rounded_predictions, min_target, max_target)
 
-# obtet o MAE com os valores arredondados
-mae_rounded = mean_absolute_error(y_test, bounded_predictions)
+    # obter o MAE com os valores originais
+    mae_original = mean_absolute_error(y_test, y_pred)
 
-print("MAE with Original Predictions:", mae_original)
-print("MAE with Rounded and Bounded Predictions:", mae_rounded)
+    # obtet o MAE com os valores arredondados
+    mae_rounded = mean_absolute_error(y_test, bounded_predictions)
+
+    lista_mae_original.append(mae_original)
+    lista_mae_rounded.append(mae_rounded)
+
+
+valor_mae_original = sum(lista_mae_original) / len(lista_mae_original)
+valor_mae_rounded = sum(lista_mae_rounded) / len(lista_mae_rounded)
+
+print("MAE with Original Predictions:", valor_mae_original)
+print("MAE with Rounded and Bounded Predictions:", valor_mae_rounded)
 
 # vê-se que o MAE com os valores arredondados é menor, logo é melhor
 
