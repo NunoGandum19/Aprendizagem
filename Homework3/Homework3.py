@@ -32,7 +32,7 @@ for i in range(1, 11):
                    early_stopping=True,
                    validation_fraction=0.2,
                    random_state=i)
-    # não sei se é suposto por um max_iter, mas se não puser dá warning
+    
     
     # treinar o modelo
     mlp.fit(X_train, y_train)
@@ -127,7 +127,6 @@ print("RMSE with Early Stopping:", rmse_es)
 
 # Create an array of constant values for y
 y = [rmse_es for i in range(len(iterations))]
-
 
 # nº iterações vs early stopping
 plt.figure(figsize=(10, 6))
