@@ -12,8 +12,6 @@ data = pd.read_csv("winequality-red.csv", delimiter=';')
 X = data.drop('quality', axis=1)
 y = data['quality']
 
-
-
 # Fazer um train/test split (80 treino e 20 teste)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
