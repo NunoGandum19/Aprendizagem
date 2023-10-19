@@ -138,20 +138,38 @@ for max_iter in iterations:
     valor_rmse = sum(rmse_lista) / len(rmse_lista)
     rmse_values.append(valor_rmse)
 
+rmse_early_stopping = []
+# iteração para cada random state
+for i in range(1, 11):
+    # Initialize the MLP regressor with random state
+    mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
+                   activation='relu',
+                   early_stopping=True,
+                   validation_fraction=0.2,
+                   random_state=i)
+    
+   
+    # treinar o modelo
+    mlp.fit(X_train, y_train)
+    
+    # obter y previsto
+    y_pred = mlp.predict(X_test)
 
-# juntar à lista o RMSE com early stopping
-rmse_es = np.sqrt(mean_squared_error(y_test, y_pred))
+    rmse_es = np.sqrt(mean_squared_error(y_test, y_pred))
+    rmse_early_stopping.append(rmse_es)
+
+valor_rmse_es = sum(rmse_early_stopping) / len(rmse_early_stopping)
 
 
 for rmse in rmse_values:
         print("RMSE for {} iterations: {}".format(iterations[rmse_values.index(rmse)], rmse))
-print("RMSE with Early Stopping:", rmse_es)
+print("RMSE with Early Stopping:", valor_rmse_es)
 
 ### 4 ##########################################
 
 
 # Array de valores constantes de y
-y = [rmse_es for i in range(len(iterations))]
+y = [valor_rmse_es for i in range(len(iterations))]
 
 # nº iterações vs early stopping
 plt.figure(figsize=(10, 6))
