@@ -55,6 +55,7 @@ plt.hist(resid, bins='auto', edgecolor='k')
 plt.title('Distribution of Absolute Residuals')
 plt.xlabel('Absolute Residuals')
 plt.ylabel('Frequency')
+plt.savefig('residuos.png')
 plt.show()
 
 ##### 2 #############################
@@ -134,6 +135,7 @@ plt.ylabel('RMSE')
 plt.title('RMSE vs. Maximum Iterations')
 plt.xticks(iterations)
 plt.legend()
+plt.savefig('iterations.png')
 plt.show()
 
 
