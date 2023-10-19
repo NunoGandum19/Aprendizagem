@@ -33,7 +33,7 @@ for i in range(1, 11):
                    validation_fraction=0.2,
                    random_state=i)
     
-    
+   
     # treinar o modelo
     mlp.fit(X_train, y_train)
     
