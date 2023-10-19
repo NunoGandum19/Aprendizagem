@@ -25,7 +25,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, 
 resid = []
 
 # iteração para cada random state
-for i in range(1, 11):
+for i in range(1, 10):
     # Initialize the MLP regressor with random state
     mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
                    activation='relu',
@@ -94,7 +94,7 @@ rmse_values = []
 # iteração pela lista de cada nº de iterações máximas
 for max_iter in iterations:
     rmse_lista = []
-    for i in range(1, 11):
+    for i in range(1, 10):
         # Inicializar o MLP regressor com os parâmetros pedidos
         mlp2 = MLPRegressor(hidden_layer_sizes=(10, 10),
                         activation='relu',
