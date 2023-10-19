@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPRegressor
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error 
+from sklearn.metrics import mean_absolute_error, mean_squared_error 
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -12,12 +12,10 @@ data = pd.read_csv("winequality-red.csv", delimiter=';')
 X = data.drop('quality', axis=1)
 y = data['quality']
 
-# Normalização dos dados
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+
 
 # Fazer um train/test split (80 treino e 20 teste)
-X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 ### 1 ##########################################
 
