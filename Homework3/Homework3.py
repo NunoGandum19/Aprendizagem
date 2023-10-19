@@ -23,7 +23,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 resid = []
 
 # iteração para cada random state
-for i in range(1, 10):
+for i in range(1, 11):
     # Initialize the MLP regressor with random state
     mlp = MLPRegressor(hidden_layer_sizes=(10, 10),
                    activation='relu',
@@ -47,12 +47,13 @@ for i in range(1, 10):
     resid.append(abs_residuos)
 
 
-# obtemos a médio dos resíduos
-average_resid = sum(resid) / len(resid)
-print("Resíduos:", average_resid)
+
+# por os resíduos numa lista
+resid = np.concatenate(resid)
 
 # fazer o histograma
-plt.hist(average_resid, bins=20, edgecolor='k')
+plt.figure(figsize=(12, 8))
+plt.hist(resid, bins='auto', edgecolor='k')
 plt.title('Distribution of Absolute Residuals')
 plt.xlabel('Absolute Residuals')
 plt.ylabel('Frequency')
@@ -92,7 +93,7 @@ rmse_values = []
 # iteração pela lista de cada nº de iterações máximas
 for max_iter in iterations:
     rmse_lista = []
-    for i in range(1, 10):
+    for i in range(1, 11):
         # Inicializar o MLP regressor com os parâmetros pedidos
         mlp2 = MLPRegressor(hidden_layer_sizes=(10, 10),
                         activation='relu',
