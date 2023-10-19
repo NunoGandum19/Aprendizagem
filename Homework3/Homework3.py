@@ -125,7 +125,7 @@ print("RMSE with Early Stopping:", rmse_es)
 ### 4 ##########################################
 
 
-# Create an array of constant values for y
+# Array de valores constantes de y
 y = [rmse_es for i in range(len(iterations))]
 
 # nº iterações vs early stopping
