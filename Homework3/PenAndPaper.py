@@ -40,7 +40,7 @@ print(f"The z_esperado is {z_esperado}.")
 
 res = RMSE(z, z_esperado)
 print(f"The RMSE is {res}.")
-############## 2. ################
+############## 2. ################################
 # Define the activation function
 def f(x):
     return np.tanh(0.5*x-2)
