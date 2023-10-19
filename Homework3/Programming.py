@@ -44,8 +44,6 @@ for i in range(1, 11):
     
     resid.append(abs_residuos)
 
-
-
 # por os resíduos numa lista
 resid = np.concatenate(resid)
 

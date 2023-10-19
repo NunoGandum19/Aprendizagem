@@ -27,7 +27,7 @@ Phi = np.array([[1, phi(X[0], c1), phi(X[0], c2), phi(X[0], c3)],
                 [1, phi(X[1], c1), phi(X[1], c2), phi(X[1], c3)],
                 [1, phi(X[2], c1), phi(X[2], c2), phi(X[2], c3)],
                 [1, phi(X[3], c1), phi(X[3], c2), phi(X[3], c3)]])
-
+print("Phi :\n", Phi)
 # Obtain the weights
 w = np.dot(np.dot(np.linalg.inv(np.dot(Phi.T, Phi) + lambda_*np.identity(4)), Phi.T), z)
 print(f"The weights are {w}.")
