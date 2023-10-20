@@ -173,7 +173,7 @@ for i in range(1, 11):
    
     # treinar o modelo
     mlp.fit(X_train, y_train)
-    
+
     # obter y previsto
     y_pred = mlp.predict(X_test)
 
