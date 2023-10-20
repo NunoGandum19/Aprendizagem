@@ -64,8 +64,8 @@ x1 = np.array([[1],[1],[1],[1]])
 x2 = np.array([[1],[0],[0],[-1]])
 
 # Define the targets
-t1 = np.array([[0],[1],[0]]) #y_1 = B
-t2 = np.array([[1],[0],[0]]) #y_2 = A
+t1 = np.array([[-1],[1],[-1]]) #y_1 = B
+t2 = np.array([[1],[-1],[-1]]) #y_2 = A
 
 ### Propagation
 # Para x1
