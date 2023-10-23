@@ -99,24 +99,7 @@ for i in range(1, 11):
     lista_mae_rounded.append(mae_rounded)
     lista_mae_bounded.append(mae_bounded)
     lista_mae_bounded_rounded.append(mae_bounded_rounded)
-
-    '''
-    # aproximamos os valores previstos para os valores inteiros mais próximos
-    rounded_predictions = np.round(y_pred)
     
-    # garantir que os valores previstos estão dentro do intervalo do target
-    bounded_rounded_predictions = np.clip(rounded_predictions, min_target, max_target)
-
-    # obter o MAE com os valores originais
-    mae_original = mean_absolute_error(y_test, y_pred)
-    # obtet o MAE com os valores arredondados
-    mae_bounded_rounded = mean_absolute_error(y_test, bounded_rounded_predictions)
-    # obter o MAE com os valores arredondados e limitados
-
-    lista_mae_original.append(mae_original)
-    lista_mae_rounded.append(mae_rounded)
-    lista_mae_bounded.append(mae_bounded)
-    lista_mae_bounded_rounded.append(mae_rounded_bounded)'''
 
 valor_mae_original = sum(lista_mae_original) / len(lista_mae_original)
 valor_mae_rounded = sum(lista_mae_rounded) / len(lista_mae_rounded)
