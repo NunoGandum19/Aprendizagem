@@ -28,28 +28,39 @@ for obs in observations:
 
     gaussian1 = multivariate_normal.pdf(y2_y3, mean=u1, cov=sigma1)
     gaussian2 = multivariate_normal.pdf(y2_y3, mean=u2, cov=sigma2)
-
+    
+    # responsabilities não normalizadas
     responsibilities[i, 0] = pi1 * bernoulli1 * gaussian1
     responsibilities[i, 1] = pi2 * bernoulli2 * gaussian2
 
+    # normalização das responsabilities
     responsibilities /= responsibilities.sum(axis=1, keepdims=True)
 
     i += 1
 
-# M-step: Update parameters
-pi1 = responsibilities[:, 0].mean()
-pi2 = responsibilities[:, 1].mean()
+# M-step
+N1 = responsibilities[:, 0].sum()
+N2 = responsibilities[:, 1].sum()
 
-p1 = (responsibilities[:, 0] * observations[:, 0]).sum() / responsibilities[:, 0].sum()
-p2 = (responsibilities[:, 1] * observations[:, 0]).sum() / responsibilities[:, 1].sum()
+pi1 = N1 / observations.shape[0]
+pi2 = N2 / observations.shape[0]
 
-u1 = (responsibilities[:, 0][:, np.newaxis] * observations[:, 1:]).sum(axis=0) / responsibilities[:, 0].sum()
-u2 = (responsibilities[:, 1][:, np.newaxis] * observations[:, 1:]).sum(axis=0) / responsibilities[:, 1].sum()
+p1 = (responsibilities[:, 0] * observations[:, 0]).sum() / N1
+p2 = (responsibilities[:, 1] * observations[:, 0]).sum() / N2
 
-sigma1 = ((responsibilities[:, 0][:, np.newaxis, np.newaxis] * (observations[:, 1:] - u1).reshape(observations.shape[0], 2, 1) * (observations[:, 1:] - u1).reshape(observations.shape[0], 1, 2)).sum(axis=0)) / responsibilities[:, 0].sum()
-sigma2 = ((responsibilities[:, 1][:, np.newaxis, np.newaxis] * (observations[:, 1:] - u2).reshape(observations.shape[0], 2, 1) * (observations[:, 1:] - u2).reshape(observations.shape[0], 1, 2)).sum(axis=0)) / responsibilities[:, 1].sum()
+u1 = (responsibilities[:, 0][:, np.newaxis] * observations[:, 1:]).sum(axis=0) / N1
+u2 = (responsibilities[:, 1][:, np.newaxis] * observations[:, 1:]).sum(axis=0) / N2
+
+diff1 = (observations[:, 1:] - u1)
+diff2 = (observations[:, 1:] - u2)
+
+sigma1 = (responsibilities[:, 0][:, np.newaxis, np.newaxis] * diff1[:, np.newaxis, :] * diff1[:, :, np.newaxis]).sum(axis=0) / N1
+sigma2 = (responsibilities[:, 1][:, np.newaxis, np.newaxis] * diff2[:, np.newaxis, :] * diff2[:, :, np.newaxis]).sum(axis=0) / N2
 
 print("Updated parameters:")
+print("responsibilities:", responsibilities)
+print("N1:", N1)
+print("N2:", N2)
 print("pi1:", pi1)
 print("pi2:", pi2)
 print("p1:", p1)
