@@ -15,21 +15,26 @@ observations = np.array([[1, 0.6, 0.1],
                         [0, 0.2, 0.5],
                         [1, 0.4, -0.1]])
 
-# E-step: Compute responsibilities
+# E-step
 responsibilities = np.zeros((observations.shape[0], 2))
-for i, obs in enumerate(observations):
-y1, y2_y3 = obs[0], obs[1:]
+# i indica o índice da observação
+i = 0
+# iteramos pelas observações
+for obs in observations:
+    y1, y2_y3 = obs[0], obs[1:]
 
-p_y1_given_theta1 = p1**y1 * (1-p1)**(1-y1)
-p_y1_given_theta2 = p2**y1 * (1-p2)**(1-y1)
+    bernoulli1 = p1**y1 * (1-p1)**(1-y1)
+    bernoulli2 = p2**y1 * (1-p2)**(1-y1)
 
-p_y2_y3_given_theta1 = multivariate_normal.pdf(y2_y3, mean=u1, cov=sigma1)
-p_y2_y3_given_theta2 = multivariate_normal.pdf(y2_y3, mean=u2, cov=sigma2)
+    gaussian1 = multivariate_normal.pdf(y2_y3, mean=u1, cov=sigma1)
+    gaussian2 = multivariate_normal.pdf(y2_y3, mean=u2, cov=sigma2)
 
-responsibilities[i, 0] = pi1 * p_y1_given_theta1 * p_y2_y3_given_theta1
-responsibilities[i, 1] = pi2 * p_y1_given_theta2 * p_y2_y3_given_theta2
+    responsibilities[i, 0] = pi1 * bernoulli1 * gaussian1
+    responsibilities[i, 1] = pi2 * bernoulli2 * gaussian2
 
-responsibilities /= responsibilities.sum(axis=1, keepdims=True)
+    responsibilities /= responsibilities.sum(axis=1, keepdims=True)
+
+    i += 1
 
 # M-step: Update parameters
 pi1 = responsibilities[:, 0].mean()
