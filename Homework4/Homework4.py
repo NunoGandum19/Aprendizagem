@@ -92,13 +92,13 @@ columns = X.columns
 sorted_features_1 = sorted(zip(columns, xvector), key=lambda x: abs(x[1]), reverse=True)
 print("Features sorted by relevance for the first principal component:")
 for feature, weight in sorted_features_1:
-    print(f'{feature}: {weight}')
+    print(f'{feature}: {abs(weight)}')
 
 
 sorted_features_2 = sorted(zip(columns, yvector), key=lambda x: abs(x[1]), reverse=True)
 print("\nFeatures sorted by relevance for the second principal component:")
 for feature, weight in sorted_features_2:
-    print(f'{feature}: {weight}')
+    print(f'{feature}: {abs(weight)}')
 
 ### 3 ##########################################
 
