@@ -53,6 +53,7 @@ for k in k_values:
     purity = purity_score(y, labels)
     print(f'Purity score for k={k}: {purity}')
 
+    # guardar para o exercício 3
     if k==3: labels_3 = labels
 
 ### 2 ##########################################
@@ -84,7 +85,8 @@ for feature, weight in sorted_features_2:
 ### 3 ##########################################
 
 # Para o k-means foi guardado no ciclo for do exercício anterior as labels_3
-# Porque o professor pede as previously learned
+# Porque o professor pede as previously learned 
+# Não sei se é suposto fazer o k-means outra vez ou não
 
 # Para não dar erro por as classes serem string
 le = LabelEncoder()
