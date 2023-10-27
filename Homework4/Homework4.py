@@ -112,7 +112,7 @@ plt.scatter(principal_components[:, 0], principal_components[:, 1], c=labels_3, 
 plt.title("k=3 Clustering Solution")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
-plt.legend(handles=scatter.legend_elements()[0], labels=labels_list)
+
 
 plt.tight_layout()
 plt.show()
