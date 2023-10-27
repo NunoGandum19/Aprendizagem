@@ -35,6 +35,8 @@ def purity_score(y_true, y_pred):
 
 
 k_values = [2, 3, 4, 5]
+silhouette_list = []
+purity_list = []
 
 for k in k_values:
     # inicializar k-means clustering
@@ -48,13 +50,29 @@ for k in k_values:
     
     # Calculate the silhouette score
     silhouette = silhouette_score(normalized_data, labels)
-    print(f'Silhouette score for k={k}: {silhouette}')
+    silhouette_list.append(silhouette)
 
     purity = purity_score(y, labels)
-    print(f'Purity score for k={k}: {purity}')
+    purity_list.append(purity)
 
     # guardar para o exercício 3
     if k==3: labels_3 = labels
+
+for i in range(len(k_values)):
+    print(f'k={k_values[i]}: silhouette={silhouette_list[i]}, purity={purity_list[i]}')
+
+
+#gráfico silhoutte vs k
+plt.plot(k_values, silhouette_list)
+plt.xlabel('k')
+plt.ylabel('Silhouette score')
+plt.show()
+
+#gráfico purity vs k
+plt.plot(k_values, purity_list)
+plt.xlabel('k')
+plt.ylabel('Purity score')
+plt.show()
 
 ### 2 ##########################################
 
