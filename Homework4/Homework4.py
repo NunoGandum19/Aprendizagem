@@ -83,8 +83,8 @@ explained_variance = pca.explained_variance_ratio_
 print(f'Variability explained by the first principal component: {explained_variance[0]}')
 print(f'Variability explained by the second principal component: {explained_variance[1]}')
 
-xvector = pca.components_[0]
-yvector = pca.components_[1]
+xvector = pca.components_[0] * max(principal_components[:, 0])
+yvector = pca.components_[1] * max(principal_components[:, 1])
 
 columns = X.columns
 
