@@ -20,7 +20,7 @@ X = df.drop('class', axis=1) #variables
 y = df['class'] #target
 
 
-# normailização dos dados
+# normalização dos dados
 scaler = MinMaxScaler()
 normalized_data = scaler.fit_transform(X)
 # IMPORTANTE AQUI NÃO SEI SE É PARA USAR O FIT_TRANSFORM OU O TRANSFORM
@@ -32,7 +32,6 @@ def purity_score(y_true, y_pred):
     # obter confusion matrix
     confusion_matrix = metrics.cluster.contingency_matrix(y_true, y_pred)
     return np.sum(np.amax(confusion_matrix, axis=0)) / np.sum(confusion_matrix) 
-
 
 k_values = [2, 3, 4, 5]
 silhouette_list = []
@@ -60,7 +59,6 @@ for k in k_values:
 
 for i in range(len(k_values)):
     print(f'k={k_values[i]}: silhouette={silhouette_list[i]}, purity={purity_list[i]}')
-
 
 #gráfico silhoutte vs k
 plt.plot(k_values, silhouette_list)
@@ -130,7 +128,6 @@ plt.scatter(principal_components[:, 0], principal_components[:, 1], c=labels_3, 
 plt.title("k=3 Clustering Solution")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
-
 
 plt.tight_layout()
 plt.show()
