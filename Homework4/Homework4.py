@@ -26,6 +26,11 @@ normalized_data = scaler.fit_transform(X)
 # IMPORTANTE AQUI NÃO SEI SE É PARA USAR O FIT_TRANSFORM OU O TRANSFORM
 
 ### 1 ##########################################
+"""
+Using sklearn, apply k-means clustering fully unsupervisedly on the normalized data with
+k in {2,3,4,5} (random=0 and remaining parameters default). Assess the silhouette and purity 
+of the produced solutions.
+"""
 
 # Função para obter a purity
 def purity_score(y_true, y_pred):
@@ -73,6 +78,12 @@ plt.ylabel('Purity score')
 plt.show()
 
 ### 2 ##########################################
+"""
+Consider the application of PCA after the data normalization:
+i) Identify the variability explained by the top two principal components.
+ii) For each one of these two components, sort the input variables by relevance by
+inspecting the absolute weights of the linear projection.
+"""
 
 pca = PCA(n_components=2)
 principal_components = pca.fit_transform(normalized_data)
@@ -99,7 +110,11 @@ for feature, weight in sorted_features_2:
     print(f'{feature}: {abs(weight)}')
 
 ### 3 ##########################################
-
+"""
+Visualize side-by-side the data using: i) the ground diagnoses and ii) the previously learned
+k = 3 clustering solution. To this end, projected the normalized data onto a 2-dimensional data
+space using PCA and the color observations using the reference and clustering annotations.
+"""
 # Para o k-means foi guardado no ciclo for do exercício anterior as labels_3
 # Porque o professor pede as previously learned 
 # Não sei se é suposto fazer o k-means outra vez ou não
@@ -132,4 +147,9 @@ plt.ylabel("Principal Component 2")
 plt.tight_layout()
 plt.show()
 
+### 4 ##########################################
+"""
+Considering the results from question 1 and 3, identify two ways on how clustering can 
+be used to characterize the population of ill and healthy individuals.
+"""
 
