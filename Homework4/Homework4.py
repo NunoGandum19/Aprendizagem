@@ -52,7 +52,7 @@ for k in k_values:
     # obter o y previsto
     labels = kmeans.labels_
     
-    # Calculate the silhouette score
+    # Calculate the silhouette and purity scores
     silhouette = silhouette_score(normalized_data, labels)
     silhouette_list.append(silhouette)
 
