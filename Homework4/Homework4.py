@@ -69,12 +69,14 @@ for i in range(len(k_values)):
 plt.plot(k_values, silhouette_list)
 plt.xlabel('k')
 plt.ylabel('Silhouette score')
+plt.title('Graph of Silhouette vs k')
 plt.show()
 
 #gráfico purity vs k
 plt.plot(k_values, purity_list)
 plt.xlabel('k')
 plt.ylabel('Purity score')
+plt.title('Graph of Purity vs k')
 plt.show()
 
 ### 2 ##########################################
