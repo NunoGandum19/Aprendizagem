@@ -35,6 +35,8 @@ def purity_score(y_true, y_pred):
 
 
 k_values = [2, 3, 4, 5]
+silhouette_list = []
+purity_list = []
 
 for k in k_values:
     # inicializar k-means clustering
@@ -48,12 +50,29 @@ for k in k_values:
     
     # Calculate the silhouette score
     silhouette = silhouette_score(normalized_data, labels)
-    print(f'Silhouette score for k={k}: {silhouette}')
+    silhouette_list.append(silhouette)
 
     purity = purity_score(y, labels)
-    print(f'Purity score for k={k}: {purity}')
+    purity_list.append(purity)
 
+    # guardar para o exercício 3
     if k==3: labels_3 = labels
+
+for i in range(len(k_values)):
+    print(f'k={k_values[i]}: silhouette={silhouette_list[i]}, purity={purity_list[i]}')
+
+
+#gráfico silhoutte vs k
+plt.plot(k_values, silhouette_list)
+plt.xlabel('k')
+plt.ylabel('Silhouette score')
+plt.show()
+
+#gráfico purity vs k
+plt.plot(k_values, purity_list)
+plt.xlabel('k')
+plt.ylabel('Purity score')
+plt.show()
 
 ### 2 ##########################################
 
@@ -64,8 +83,8 @@ explained_variance = pca.explained_variance_ratio_
 print(f'Variability explained by the first principal component: {explained_variance[0]}')
 print(f'Variability explained by the second principal component: {explained_variance[1]}')
 
-xvector = pca.components_[0]
-yvector = pca.components_[1]
+xvector = pca.components_[0] * max(principal_components[:, 0])
+yvector = pca.components_[1] * max(principal_components[:, 1])
 
 columns = X.columns
 
@@ -73,18 +92,19 @@ columns = X.columns
 sorted_features_1 = sorted(zip(columns, xvector), key=lambda x: abs(x[1]), reverse=True)
 print("Features sorted by relevance for the first principal component:")
 for feature, weight in sorted_features_1:
-    print(f'{feature}: {weight}')
+    print(f'{feature}: {abs(weight)}')
 
 
 sorted_features_2 = sorted(zip(columns, yvector), key=lambda x: abs(x[1]), reverse=True)
 print("\nFeatures sorted by relevance for the second principal component:")
 for feature, weight in sorted_features_2:
-    print(f'{feature}: {weight}')
+    print(f'{feature}: {abs(weight)}')
 
 ### 3 ##########################################
 
 # Para o k-means foi guardado no ciclo for do exercício anterior as labels_3
-# Porque o professor pede as previously learned
+# Porque o professor pede as previously learned 
+# Não sei se é suposto fazer o k-means outra vez ou não
 
 # Para não dar erro por as classes serem string
 le = LabelEncoder()
@@ -110,7 +130,7 @@ plt.scatter(principal_components[:, 0], principal_components[:, 1], c=labels_3, 
 plt.title("k=3 Clustering Solution")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
-plt.legend(handles=scatter.legend_elements()[0], labels=labels_list)
+
 
 plt.tight_layout()
 plt.show()

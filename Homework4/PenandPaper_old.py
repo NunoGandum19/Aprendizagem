@@ -39,6 +39,9 @@ for obs in observations:
     i += 1
 
 # M-step
+# Sim Nuno, esta foi a parte em que só dei o meu código e as fórmulas ao chatgpt para ele fazer
+
+
 N1 = responsibilities[:, 0].sum()
 N2 = responsibilities[:, 1].sum()
 
