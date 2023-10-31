@@ -87,16 +87,18 @@ ii) For each one of these two components, sort the input variables by relevance 
 inspecting the absolute weights of the linear projection.
 """
 
+### i)
 pca = PCA(n_components=2)
-principal_components = pca.fit_transform(normalized_data)
+points_transformed = pca.fit_transform(normalized_data)  # pontos na nova base
 
-explained_variance = pca.explained_variance_ratio_
+explained_variance = pca.explained_variance_ratio_  # variabilidade explicada por cada componente
+
 print(f'Variability explained by the first principal component: {explained_variance[0]}')
 print(f'Variability explained by the second principal component: {explained_variance[1]}')
 
-xvector = pca.components_[0] * max(principal_components[:, 0])
-yvector = pca.components_[1] * max(principal_components[:, 1])
-
+### ii)
+xvector = pca.components_[0] * max(points_transformed[:, 0])
+yvector = pca.components_[1] * max(points_transformed[:, 1])
 columns = X.columns
 
 # sort das variáveis por ordem de relevância, usando o valor absoluto dos pesos
@@ -133,7 +135,7 @@ plt.figure(figsize=(12, 5))
 
 # para o ground truth
 plt.subplot(1, 2, 1)
-scatter = plt.scatter(principal_components[:, 0], principal_components[:, 1], c=encoded_classes, cmap='viridis', alpha=0.7)
+scatter = plt.scatter(points_transformed[:, 0], points_transformed[:, 1], c=encoded_classes, cmap='viridis', alpha=0.7)
 plt.title("Ground Truth Diagnoses")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
@@ -141,7 +143,7 @@ plt.legend(handles=scatter.legend_elements()[0], labels=labels_list)
 
 # para o k-means clustering com k=3
 plt.subplot(1, 2, 2)
-plt.scatter(principal_components[:, 0], principal_components[:, 1], c=labels_3, cmap='viridis', alpha=0.7)
+plt.scatter(points_transformed[:, 0], points_transformed[:, 1], c=labels_3, cmap='viridis', alpha=0.7)
 plt.title("k=3 Clustering Solution")
 plt.xlabel("Principal Component 1")
 plt.ylabel("Principal Component 2")
