@@ -1,3 +1,3 @@
 # Aprendizagem (Machine Learning)
 
-Repositório criado para organizar/arquivar os documentos da cadeira de Aprendizagem.
+Repository for the UC Aprendizagem (Machine Learning) at IST
